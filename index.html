@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linktree Modern</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <style>
+      :root {
+        --primary-color: #fff;
+        --glow-color: rgba(255, 255, 255, 0.5);
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: url("my_app_background.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: var(--primary-color);
+        transition: backgroun 0.6s ease;
+        overflow-x: hidden;
+      }
+      body.dark {
+        background: url("YT.png") no-repeat center center fixed;
+        background-size: cover;
+        color: var(--primary-color);
+      }
+      .dark-mode-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1000;
+      }
+      .profile {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .profile img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+      }
+      .quote {
+        text-align: center;
+        font-style: italic;
+        font-size: 14px;
+        margin-top: 10px;
+        opacity: 0;
+        animation: fadeIn 1.5s forwards;
+      }
+      .name {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      .bio {
+        font-size: 14px;
+        color: #ccc;
+      }
+      .link-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        padding: 0 20px;
+      }
+      .link-container a {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 14px 24px;
+        margin: 8px 0;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px transparent;
+      }
+      .link-container a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px var(--glow-color);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .link-container a::after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.4s, opacity 0.8s;
+        pointer-events: none;
+        left: var(--x, 50%);
+        top: var(--y, 50%);
+        transform: translate(-50%, -50%) scale(0);
+      }
+      .link-container a:active::after {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 1;
+        transition: 0s;
+      }
+      footer {
+        text-align: center;
+        font-size: 12px;
+        color: #aaa;
+        margin-top: 40px;
+      }
+      .music-button {
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeIn 1s ease forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted loop id="bgVideo" style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; z-index: -2; object-fit: cover">
+      <source src="glitch-background.mp4" type="video/mp4" />
+    </video>
+
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: -1"></div>
+
+    <div class="dark-mode-toggle" id="themeToggle">🌓</div>
+    <div class="profile">
+      <img src="logo.png" alt="Foto Profil" />
+      <div class="name">Nama Kamu</div>
+      <div class="bio">Bio singkat kamu di sini</div>
+    </div>
+    <div class="quote">"Stay connected, stay inspired."</div>
+    <div class="link-container">
+      <a href="https://wa.me/123456" class="fade-in" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/username" class="fade-in" target="_blank">Instagram</a>
+      <a href="https://youtube.com/username" class="fade-in" target="_blank">YouTube</a>
+      <a href="https://tiktok.com/@username" class="fade-in" target="_blank">TikTok</a>
+      <a href="mailto:email@example.com" class="fade-in">Email</a>
+    </div>
+    <div class="music-button" onclick="toggleMusic()" id="musicBtn">🔊 Putar Musik</div>
+    <audio id="bgMusic" src="Ost. Intense Love - Waiting For Me [Monkey ft. Li RuoXi] 2020.mp3" loop></audio>
+    <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1234e85f3d.mp3" preload="auto"></audio>
+
+    <select
+      id="playlist"
+      style="position: fixed; left: 20px; bottom: 100px; z-index: 10; padding: 4px; font-size: 14px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; width: 200px"
+    >
+      <option value="Ost. Intense Love - Waiting For Me [Monkey ft. Li RuoXi] 2020.mp3">Intense Love OST</option>
+      <option value="NUMERA UNO ANTHEM  - Prod. By KANG GAYANG (Official Music Video).mp3">NUMERA UNO ANTHEM</option>
+      <option value="Tada Koe Hitotsu - the voice rᴇmix (1).mp3">Tada Koe Hitotsu</option>
+      <option value="eminem - stan lofi remix (slowed  reverb).mp3">Eminem - Stan Lofi Remix</option>
+      <option value="Way Back Home.mp3">Way Back Home</option>
+      <option value="「AS ~ Nightcore」~ That Girl ~.mp3">That Girl - Nightcore</option>
+    </select>
+
+    <div id="volumeBar" style="position: fixed; left: 160px; bottom: 60px; width: 8px; height: 40px; background: limegreen; transition: height 0.1s ease; z-index: 10"></div>
+
+    <div style="position: fixed; right: 20px; bottom: 20px; z-index: 10; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(5px); text-align: center">
+      <div style="font-size: 12px; color: white">Scan WhatsApp</div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/6282231533780&size=100x100" alt="QR WA" style="margin-top: 5px" />
+    </div>
+
+    <footer>&copy; 2025 Nama Kamu. All rights reserved.</footer>
+    <input
+      type="range"
+      id="volumeSlider"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.5"
+      style="position: fixed; left: 20px; bottom: 60px; z-index: 10; width: 120px; background: rgba(255, 255, 255, 0.1); accent-color: white"
+      title="Volume Musik"
+    />
+
+    <div id="tsparticles"></div>
+    <script>
+      const toggle = document.getElementById("themeToggle");
+      toggle.addEventListener("click", () => document.body.classList.toggle("dark"));
+
+      const music = document.getElementById("bgMusic");
+      const musicBtn = document.getElementById("musicBtn");
+      function toggleMusic() {
+        if (music.paused) {
+          music.play();
+          musicBtn.textContent = "🔇 Stop Musik";
+        } else {
+          music.pause();
+          musicBtn.textContent = "🔊 Putar Musik";
+        }
+      }
+
+      const clickSound = document.getElementById("clickSound");
+      document.querySelectorAll(".link-container a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          clickSound.currentTime = 0;
+          clickSound.play();
+          const x = e.clientX - this.getBoundingClientRect().left;
+          const y = e.clientY - this.getBoundingClientRect().top;
+          this.style.setProperty("--x", x + "px");
+          this.style.setProperty("--y", y + "px");
+        });
+      });
+
+      tsParticles.load("tsparticles", {
+        fullScreen: { enable: true, zIndex: -1 },
+        particles: {
+          number: { value: 80 },
+          color: { value: ["#ff0000", "#00ff00", "#0000ff"] },
+          shape: { type: "circle" },
+          opacity: { value: 0.5 },
+          size: { value: 3 },
+          move: { enable: true, speed: 1 },
+        },
+        interactivity: {
+          events: {
+            onHover: { enable: true, mode: "repulse" },
+            onClick: { enable: true, mode: "push" },
+          },
+          modes: {
+            repulse: { distance: 100 },
+            push: { quantity: 4 },
+          },
+        },
+        detectRetina: true,
+      });
+
+      const volumeSlider = document.getElementById("volumeSlider");
+      volumeSlider.addEventListener("input", () => {
+        music.volume = volumeSlider.value;
+      });
+      const playlist = document.getElementById("playlist");
+      playlist.addEventListener("change", () => {
+        music.src = playlist.value;
+        music.play();
+        musicBtn.textContent = "🔇 Stop Musik";
+      });
+
+      setInterval(() => {
+        if (!music.paused) {
+          const h = 20 + Math.random() * 20;
+          document.getElementById("volumeBar").style.height = h + "px";
+        } else {
+          document.getElementById("volumeBar").style.height = "10px";
+        }
+      }, 150);
+
+      const quote = document.querySelector(".quote");
+      const text = quote.textContent;
+      quote.textContent = "";
+      let i = 0;
+      function typeWriter() {
+        if (i < text.length) {
+          quote.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+      window.onload = typeWriter;
+    </script>
+  </body>
+</html>
