@@ -1,0 +1,43 @@
+.quote {
+  font-family: 'Courier New', monospace;
+  animation: typing 3s steps(30) 1s 1 normal both, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+.link-container a:hover {
+  transform: scale(1.05) rotateY(10deg) rotateX(10deg);
+}
+.link-container a:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn 1s ease forwards;
+}
+body {
+  background-attachment: fixed;
+  background-position: center;
+}
+.dark-mode-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999; /* Memberikan z-index lebih tinggi agar tombol selalu berada di atas */
+}

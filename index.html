@@ -17,7 +17,7 @@
         background: url("my_app_background.jpg") no-repeat center center fixed;
         background-size: cover;
         color: var(--primary-color);
-        transition: backgroun 0.6s ease;
+        transition: background 0.6s ease;
         overflow-x: hidden;
       }
       body.dark {
@@ -39,7 +39,7 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        z-index: 1000;
+        z-index: 9999; /* Higher z-index to ensure the button is above everything else */
       }
       .profile {
         text-align: center;
@@ -90,31 +90,28 @@
         overflow: hidden;
         transition: all 0.3s ease;
         box-shadow: 0 0 10px transparent;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .link-container a.show {
+        opacity: 1;
+        transform: translateY(0);
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       .link-container a:hover {
         transform: scale(1.05);
         box-shadow: 0 0 15px var(--glow-color);
         background: rgba(255, 255, 255, 0.1);
-      }
-      .link-container a::after {
-        content: "";
-        position: absolute;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        transform: scale(0);
-        opacity: 0;
-        transition: transform 0.4s, opacity 0.8s;
-        pointer-events: none;
-        left: var(--x, 50%);
-        top: var(--y, 50%);
-        transform: translate(-50%, -50%) scale(0);
-      }
-      .link-container a:active::after {
-        transform: translate(-50%, -50%) scale(4);
-        opacity: 1;
-        transition: 0s;
       }
       footer {
         text-align: center;
@@ -152,21 +149,22 @@
       <source src="glitch-background.mp4" type="video/mp4" />
     </video>
 
-    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: -1"></div>
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: -2; pointer-events: none"></div>
 
-    <div class="dark-mode-toggle" id="themeToggle">🌓</div>
+    <div class="dark-mode-toggle" id="themeToggle" style="z-index: 9999">🌓</div>
+
     <div class="profile">
       <img src="logo.png" alt="Foto Profil" />
-      <div class="name">Nama Kamu</div>
-      <div class="bio">Bio singkat kamu di sini</div>
+      <div class="name">YOHANES A P</div>
+      <div class="bio">NEVER DIE</div>
     </div>
     <div class="quote">"Stay connected, stay inspired."</div>
     <div class="link-container">
-      <a href="https://wa.me/123456" class="fade-in" target="_blank">WhatsApp</a>
-      <a href="https://instagram.com/username" class="fade-in" target="_blank">Instagram</a>
-      <a href="https://youtube.com/username" class="fade-in" target="_blank">YouTube</a>
+      <a href="https://wa.me/082231533780" class="fade-in" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/los.vagos_12" class="fade-in" target="_blank">Instagram</a>
+      <a href="https://youtube.com/@evoluciongaming7729" class="fade-in" target="_blank">YouTube</a>
       <a href="https://tiktok.com/@username" class="fade-in" target="_blank">TikTok</a>
-      <a href="mailto:email@example.com" class="fade-in">Email</a>
+      <a href="https://discord.gg/p9P9bjb7MA" class="fade-in" target="_blank">Discord</a>
     </div>
     <div class="music-button" onclick="toggleMusic()" id="musicBtn">🔊 Putar Musik</div>
     <audio id="bgMusic" src="Ost. Intense Love - Waiting For Me [Monkey ft. Li RuoXi] 2020.mp3" loop></audio>
@@ -174,7 +172,19 @@
 
     <select
       id="playlist"
-      style="position: fixed; left: 20px; bottom: 100px; z-index: 10; padding: 4px; font-size: 14px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; width: 200px"
+      style="
+        position: fixed;
+        left: 20px;
+        bottom: 100px;
+        z-index: 10;
+        padding: 4px;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        color: rgb(15, 176, 239);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        width: 200px;
+      "
     >
       <option value="Ost. Intense Love - Waiting For Me [Monkey ft. Li RuoXi] 2020.mp3">Intense Love OST</option>
       <option value="NUMERA UNO ANTHEM  - Prod. By KANG GAYANG (Official Music Video).mp3">NUMERA UNO ANTHEM</option>
@@ -191,7 +201,7 @@
       <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://wa.me/6282231533780&size=100x100" alt="QR WA" style="margin-top: 5px" />
     </div>
 
-    <footer>&copy; 2025 Nama Kamu. All rights reserved.</footer>
+    <footer>&copy; 2025 JimLoser. All rights reserved.</footer>
     <input
       type="range"
       id="volumeSlider"
@@ -287,6 +297,11 @@
         }
       }
       window.onload = typeWriter;
+
+      // Change background every 8 seconds continuously
+      setInterval(() => {
+        document.body.style.backgroundImage = document.body.style.backgroundImage === "url('YT.png')" ? "url('my_app_background.jpg')" : "url('YT.png')";
+      }, 60000); // Ganti background setiap 8 detik
     </script>
   </body>
 </html>
