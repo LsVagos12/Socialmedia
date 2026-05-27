@@ -13,4 +13,15 @@
 
 ---
 
+# ⚡ VAGOS LINKTREE MODERN v4.2.1
+> **STATUS:** OPERATIONAL 🟢 | **THEME:** CYBERPUNK
 
+---
+
+## 🚀 FITUR ANDALAN
+```text
+┌────────────────────────────────────────────────────────┐
+│ 🎬 Loading Screen 3D   │ 💥 Ledakan Partikel Klik      │
+│ 🎵 6 Tema Adaptif Musik│ 🎚️ Neon Audio Equalizer       │
+│ 🎙️ Lirik Musik Karaoke │ 📱 100% Responsif & Anti-Lag   │
+└────────────────────────────────────────────────────────┘
